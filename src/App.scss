@@ -1,0 +1,434 @@
+$orange-5:  #FFF3EB;
+$orange-80: #FFAC70;
+$orange-100: #FF8B37;
+$orange-120: #E87928;
+$green-5: #E6FAEA;
+$green-100: #47D867;
+$red-5: #FDEEED;
+$red-100: #EC6259;
+$black-5: #F5F5F7;
+$black-12: #E5E5E5;
+$black-40: #D0D0D8;
+$black-100: #1C1C21;
+
+* {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+}
+
+.main {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.title {
+    font-size: 5.6rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0em;
+}
+
+.subtitle {
+    font-size: 3.2rem;
+    color: $black-100;
+    opacity: 0.5;
+    margin-bottom: 0.8rem;
+    line-height: 1.16;
+    font-weight: 600;
+}
+
+.button {
+    height: 6.4rem;
+    max-width: 29.6rem;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    background: $orange-100;
+    border: 0;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+        background: $orange-80;
+    }
+
+    &:active {
+        background: $orange-120;
+    }
+}
+
+.game-window {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__container {
+        margin-left: 3.2rem;
+        flex: 1;
+    }
+
+    &__img {
+        width: 100%;
+        flex: 1;
+        animation-name: greetings;
+        animation-duration: .5s;
+        animation-delay: .4s;
+        animation-timing-function: linear;
+    }
+
+    &__content {
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 120rem;
+
+        .title {
+            margin-bottom: 6.4rem;
+            max-width: 46rem;
+        }
+    }
+
+    &::before {
+        content: "";
+        right: 0;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom right, white 50%, $orange-5 50%);
+    }
+
+    &_silver {
+        &::before {
+            background: $black-12;
+        }
+    }
+}
+
+.game {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+
+    .menu-button,
+    .menu-open {
+        cursor: pointer;
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        width: 1.6rem;
+        z-index: 10;
+        display: none;
+    }
+
+    &-question {
+        background: $black-12;
+        flex: 1;
+        padding: 12rem 8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &-menu {
+        max-width: 26vw;
+        min-width: 26vw;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        &__item {
+            display: flex;
+            width: 100%;
+            font-size: 2rem;
+            height: 4rem;
+            margin-bottom: 0.8rem;
+            justify-content: center;
+            align-items: center;
+
+            &::before {
+                content: "";
+                width: 100%;
+                background: $black-40;
+                height: 1px;
+                position: absolute;
+                z-index: -1;
+            }
+
+            &_active {
+                &::before {
+                    background: $orange-100;
+                }
+            }
+        }
+
+        &__icon {
+            position: absolute;
+            z-index: -1;
+            height: 4rem;
+            width: 24rem;
+        }
+    }
+}
+
+.question-title {
+    font-size: 3.2rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.answer {
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.16;
+    position: relative;
+    margin: 0 3.4rem;
+    cursor: pointer;
+    height: 7.2rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    &:before,
+    &:after {
+        content: "";
+        height: 0.1rem;
+        background: $black-40;
+        width: 3.6rem;
+        display: block;
+        z-index: 1;
+        position: absolute;
+    }
+    &.wrong {
+        &:before,
+        &:after {
+            background: $red-100;
+        }
+    }
+
+    &.active {
+        &:before,
+        &:after {
+            background: $orange-100;
+        }
+    }
+
+    &.correct {
+        &:before,
+        &:after {
+            background: $green-100;
+        }
+    }
+
+    &:before {
+        left: -3.6rem;
+    }
+
+    &:after {
+        right: -3.6rem;
+    }
+
+    &__text {
+        position: relative;
+        z-index: 3;
+        font-size: 2rem;
+        padding: 2.4rem 3.2rem;
+        width: 100%;
+        white-space: pre;
+    }
+
+    &__marker {
+        color: #FF8B37;
+        font-weight: 600;
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-right: 0.8rem;
+    }
+
+    &__border {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        transition: all 0.3s;
+
+        &_hover {
+            display: none;
+        }
+    }
+
+    &:not(.correct):not(.wrong):not(.active) {
+        &:hover {
+            .answer__border {
+                display: none;
+                &_hover {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 32px;
+}
+
+@keyframes greetings {
+    0% {
+        transform: rotate(-35deg);
+    }
+
+    50% {
+        transform: rotate(-14deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .game {
+        .menu-button,
+        .menu-open {
+            display: block;
+        }
+
+        .game-menu {
+            display: none;
+
+            &__item {
+                font-size: 1.4rem;
+                height: 3.4rem;
+            }
+        }
+
+        .menu-open + .game-menu {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: $black-12;
+            right: 0;
+            z-index: 9;
+            max-width: 100%;
+
+        }
+
+        &-question {
+            padding: 13.6rem 0 2.4rem;
+        }
+
+        .question-title {
+            padding: 1.6rem;
+            text-align: center;
+            font-size: 1.8rem;
+            max-width: 76%;
+            margin: 0 auto;
+        }
+
+        .answers {
+            grid-row-gap: 0;
+        }
+    }
+
+    .game-window {
+        &__content {
+            flex-direction: column;
+        }
+
+        &__container {
+            margin-left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0 1.6rem;
+            box-sizing: border-box;
+        }
+    }
+
+    .subtitle {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .game-window__img {
+        margin-bottom: 4rem;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .button {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 3.2rem;
+    }
+
+    .start-window {
+        &__container {
+            margin-left: 0;
+        }
+
+        &__img {
+            margin-bottom: 24px;
+            height: 192px;
+        }
+
+        &__content {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+
+            .title {
+                margin-bottom: 102px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 556px) {
+    .game {
+        .answers {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media all and (min-width: 1920px) {
+    * {
+        font-size: 16px;
+    }
+}
+
+@media all and (min-width: 3000px) {
+    * {
+        font-size: 24px;
+    }
+}
